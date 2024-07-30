@@ -1,0 +1,57 @@
+{{extend 'layout.html'}}
+{{block content}}
+
+  <div  class="container">
+    <br/>
+    <h1 class="inline-block margin-right-100">List des réservations</h1> 
+    <h1 class="inline-block bold-font-a"><a class="btn btn-primary" href="{{=URL(c='place', f='ajout_place')}}">Ajouter des réservations</a></h1>
+    <br/><br/>
+
+
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nom Prénom du réservant</th>
+            <th scope="col">Nombre de place(s)</th>
+            <th scope="col">Numéro de l'affiche</th>
+            <th scope="col">Titre du film reservé</th>
+            <th scope="col">Image du film réservé</th>
+            <th scope="col" colspan="2">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{for _place in rows_pdf:}}
+        
+        <tr>
+            <th scope="row">{{=_place.place_id.id}}</th>
+            <th>{{ if _place.place_id.personne_id != None :}}
+                {{=_place.place_id.personne_id.nom}} {{=_place.place_id.personne_id.prenom}}
+                {{else:}}Nom ou prénom non mentionné{{pass}}
+            </th>
+            <th>{{if _place.place_id.nombre_place :}}{{=_place.place_id.nombre_place}}{{else:}}1{{pass}}</th>
+            <th>{{if _place.place_id.affiche_id != None :}}{{=_place.place_id.affiche_id.numero_affiche}}{{else:}}Affiche non mentionnée{{pass}}</th>
+            <th>{{if _place.place_id.affiche_id != None :}}{{=_place.place_id.affiche_id.film_id.titre}}{{else:}}Affiche non mentionnée{{pass}}</th>
+            <th>{{if _place.place_id.affiche_id != None :}}
+                <img src="{{=URL(c='default', f='download', args=[_place.place_id.affiche_id.film_id.image])}}" width="70" height="50" />
+                {{else:}}Affiche non mentionnée{{pass}}
+            </th>
+            <th>
+                <a class="btn btn-info circle" style="color: white;" target="_blank" href="{{=URL('static', _place.pdf_url) }}">PDF</a>
+            </th>
+            <td>
+                <a class="btn btn-primary" href="{{=URL(c='place', f='modifier_place', args=[_place.place_id.id])}}">
+                    <i class="fa fa-edit"></i>
+                </a>
+            </td>
+            <td>
+                <a class="btn btn-danger circle" href="{{=URL(c='place', f='supprimer_place', args=[_place.place_id.id])}}">
+                    <i class="fa fa-trash-o"></i>
+                </a>
+            </td>
+        </tr>
+        {{pass}}
+    </tbody>
+</table>
+</div>
+{{end content}}

@@ -1,0 +1,65 @@
+{{extend 'layout.html'}}
+{{block content}}
+
+  <div  class="container">
+    <br/>
+    <h1 class="inline-block margin-right-100">List des Affiche enrégistrées</h1> 
+    <h1 class="inline-block bold-font-a"><a class="btn btn-primary" href="{{=URL(c='affiche', f='ajout_affiche')}}">Ajouter des Affiches</a></h1>
+    <br/><br/>
+    
+<table class="table table-striped table-dark">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Numéro d'affichage</th>
+            <th scope="col">Image du Film</th>
+            <th scope="col">Titre du Film</th>
+            <th scope="col">Date et Heure de Projection</th>
+            <th scope="col" colspan="2">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{for _affiche in rows:}}
+        
+        <tr>
+            <th scope="row">{{=_affiche.id}}</th>
+            <th>{{=_affiche.numero_affiche}}</th>
+            <th>
+                {{if _affiche.film_id != None:}}
+                    <img src="{{=URL(c='default', f='download', args=[_affiche.film_id.image])}}" width="70" height="50" />
+                {{else:}}
+                    Image du Film non trouvée
+                {{pass}}
+            </th>
+            <th>
+                {{if _affiche.film_id != None:}}
+                    {{=_affiche.film_id.titre}}
+                {{else:}}
+                    Titre du Film non trouvé
+                {{pass}}
+            </th>
+            
+            <th>{{=_affiche.date_heure_projection}}</th>
+            <td>
+                <a  href="{{=URL(c='affiche', f='modifier_affiche', args=[_affiche.id])}}">
+                    modifier
+                </a>
+            </td>
+            <td>
+                <a class="" href="{{=URL(c='affiche', f='supprimer_affiche', args=[_affiche.id])}}">
+                    supprimer
+                </a>
+            </td>
+            <td>
+                <a href="{{=URL(c='affiche', f='detail', args=[_affiche.id])}}">
+                   detail
+                </a>
+            </td>
+        </tr>
+        {{pass}}
+    </tbody>
+</table>
+
+</div>
+
+{{end content}}

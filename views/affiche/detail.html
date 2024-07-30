@@ -1,0 +1,94 @@
+{{extend 'layout.html'}}
+{{block content}}
+
+
+<div class="container section single-movie">
+    <div class="row">
+        <div class="col-sm-7">
+
+            <div class="row">
+                <div class="col-sm-5">
+                    <img
+                        style="height: 300px !important;" height="250"
+                        src="{{=URL(c='default', f='download', args=[affiche.film_id.image])}}"
+                        alt="{{=affiche.film_id.titre}}"
+                        class="poster"
+                    />
+
+                    <div class="share">
+                        <a href="#">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+
+                        <a href="#">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+
+                        <a href="#">
+                            <i class="fa fa-pinterest"></i>
+                        </a>
+
+                        <a href="#">
+                            <i class="fa fa-google-plus"></i>
+                        </a>
+                    </div>
+                    
+                </div>
+
+                <div class="col-sm-7">
+                    <h3 class="no-underline">{{=affiche.film_id.titre}}</h3>
+
+                    
+
+                    <p>
+                        {{=affiche.film_id.description}}
+                    </p>
+
+                    <ul class="movie-info">
+                        <h4>
+                            <i>Réalisateur</i>
+
+                            {{=affiche.film_id.realisateur}}
+                        </h4>
+
+                         <h4>
+                            <i>Date de sortie</i>
+
+                            {{=affiche.film_id.date_sortie}}
+                        </h4>
+
+                         <h4>
+                            <i>Duréé</i>
+
+                            {{=affiche.film_id.duree}}
+                        </h4>
+                    </ul>
+
+                    <div class="inline-block">
+                        <form enctype="multipart/form-data" class="inline-block"
+                            action="{{=URL(c='personne', f='ajout_personne')}}" method="post">
+                            <input type="hidden" value="{{=affiche.id}}" name="affiche_id" />
+                        <input type="submit" class="btn btn-success" value="Réserver" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4 col-sm-push-1">
+            <h2>Programmé sur</h2>
+
+            <ul class="show-times">
+               
+                <h4>
+                    <h4>{{=week_day}}</h>
+                    <span class="time">{{=affiche.date_heure_projection}}</span>
+                </h4>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+{{end content}}

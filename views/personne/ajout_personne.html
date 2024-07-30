@@ -1,0 +1,46 @@
+{{extend 'layout.html'}}
+{{block content}}
+
+<div class="container">
+	<br>
+	<h1 class="inline-block margin-right-100">
+		Ajouter une personne
+	</h1>
+	<h1 class="inline-block bold-font-a">
+		<a class="btn"
+			href="{{=URL(c='personne', f='list_personne')}}">
+			Liste des personnes
+		</a>
+	</h1>
+	<br>
+	<br>
+	{{if pdf_url != None:}}
+	<div class="alert alert-success">
+		{{if message:}}{{=message}}.{{pass}}
+		<span>
+			<a class="btn circle"
+				style="background-color: black; color: white;"
+				target="_blank"
+				href="{{=URL('static', pdf_url) }}">
+				Télécharger Votre ticket maintenant.(La dernière réservation)
+			</a>
+		</span>
+	</div>
+	{{pass}}
+{{if mode_reservation:}}
+	<div class="alert alert-info">
+		<span>
+			En mode de réservation.
+		</span>
+	</div>
+	{{else:}}
+	<div class="alert alert-info">
+		<span>
+			En mode Ajout de Personne.
+		</span>
+	</div>
+	{{pass}}
+
+  {{=form}}
+</div>
+{{end content}}
